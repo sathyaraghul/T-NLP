@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Railway Question Answering </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<script>
+function myFunction() {
+var text1= $('#text1').val();
+  $.ajax({
+              url: "/join",
+              type: "POST",
+              data: {text1:text1,
+              }
+          }).done(function(response) {
+
+            var html= "<br><p style='text-align:center;'> <b> RESULT : <b></p>";
+            response =response.result;
+                 $.each(response,function(key,val){
+                 console.log(val);
+                    html+="<p style='text-align:center;'>"+val+"<p>"
+                });
+                html +="<br>";
+                $(".show-data").append(html);
+            });
+};
+  </script>
+<body>
+    <style>
+body {
+  background-image: url("{{ url_for('static', filename='image.jpg') }}");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+    
+    <p style="text-align:center; font-size: 40px",>
+        <b>Railway Query</b><br><br>
+            Question<br> <input type="text" id="text1" name="text1"><br>
+            <button id="clicked" onclick="myFunction()">Get answer</button>
+        </p>
+    <div class="show-data" >
+    </div>
+</body>
+</html>
